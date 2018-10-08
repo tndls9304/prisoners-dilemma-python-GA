@@ -1,4 +1,4 @@
-from GA_utils import population
+from GA_tool import population
 from strategy import strategy
 
 # custom variables ####################
