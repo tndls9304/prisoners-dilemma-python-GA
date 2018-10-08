@@ -1,6 +1,24 @@
 import random, copy
 import numpy as np
+from strategy import strategy
 
+def judgement(my_selection, oppenent):
+    cooperate = 3
+    defected = 0
+    punished = 1
+    defecting = 5
+    if my_selection == '0':
+        if oppenent == my_selection:
+            return cooperate
+        else:
+            return defected
+    elif my_selection == '1':
+        if oppenent == my_selection:
+            return punished
+        else:
+            return defecting
+        
+        
 # gene class contains gdata (chromosome), history (index of chromosome) and fitness of that
 class gene:
     def __init__(self, init_rand=True):
@@ -34,7 +52,7 @@ class gene:
 # tmpglist: temporary glist which includes generated and origianl genes
 # prob_cross: probability of crossover operation
 # prob_mutate: probability of mutation operation
-# match_times: how many times the gene matches for each strategy at one generation
+# match_times: how many times the gene matches for each at one generation
 # bestFitness: maximum fitness value of gene contained in glist
 # oppFitness: oppenent's fitness value for comparing the genes
 # bestGene: class gene which have maximum fitness
@@ -128,10 +146,10 @@ class population:
             target = self.glist
         else:
             target = self.tmpglist
-        self.strategy = strategy(len(target))
+        self.strategy = strategy(len(target), types)
         for i, gene in enumerate(target):
             for _ in range(self.match_times):
-                result = gene.match(self.strategy.selection(types))
+                result = gene.match(self.strategy.selection())
                 self.strategy.opp_history += result[0]
                 self.strategy.history += result[-1]
                 self.strategy.fitness[i] = judgement(result[-1], result[0])
