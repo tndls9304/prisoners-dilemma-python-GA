@@ -1,5 +1,4 @@
 from GA_tool import population
-from strategy import strategy
 
 # custom variables ####################
 # n_generation: the number of generation (evolution)
@@ -22,24 +21,6 @@ prob_mutate = .05
 
 strategy_type = 0
 strategy_list = ['AllD', 'AllC', 'Trigger', 'CDCD', 'CCD', 'Random', 'Tit-For-Tat']
-
-opp_startegy = strategy(strategy_type)
-
-def judgement(my_selection, oppenent):
-    cooperate = 3
-    defected = 0
-    punished = 1
-    defecting = 5
-    if my_selection == '0':
-        if oppenent == my_selection:
-            return cooperate
-        else:
-            return defected
-    elif my_selection == '1':
-        if oppenent == my_selection:
-            return punished
-        else:
-            return defecting
             
 if __name__ == '__main__':
     fitness_list = []
