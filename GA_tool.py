@@ -148,7 +148,7 @@ class population:
             target = self.tmpglist
         self.strategy = strategy(len(target), types)
         for i, gene in enumerate(target):
-            for _ in range(self.match_times):
+            for x in range(self.match_times):
                 result = gene.match(self.strategy.selection())
                 self.strategy.opp_history += result[0]
                 self.strategy.history += result[-1]
