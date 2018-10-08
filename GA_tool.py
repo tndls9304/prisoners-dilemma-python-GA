@@ -1,3 +1,6 @@
+import random, copy
+import numpy as np
+
 # gene class contains gdata (chromosome), history (index of chromosome) and fitness of that
 class gene:
     def __init__(self, init_rand=True):
