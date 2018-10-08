@@ -5,21 +5,25 @@ from strategy import strategy
 # n_generation: the number of generation (evolution)
 # population_size: the number of chronosomes in one population
 # match_times: the number of matching with oppenent to evaluate the strategy
+# init_rand: randomize initial history or not. ('000000')
 # prob_cross: the probability of operating crossover
 # prob_mutate: the probability of operating mutate
+# strategy_type: select strategy type 0 to 6.
 # opp_strategy: oppenent's strategy
 ########################################
 
 n_generation = 50
 population_size = 20
 match_times = 40
+init_rand = False
 
 prob_cross = .5
 prob_mutate = .05
 
+strategy_type = 0
 strategy_list = ['AllD', 'AllC', 'Trigger', 'CDCD', 'CCD', 'Random', 'Tit-For-Tat']
 
-opp_startegy = strategy(0)
+opp_startegy = strategy(strategy_type)
 
 def judgement(my_selection, oppenent):
     cooperate = 3
@@ -39,24 +43,16 @@ def judgement(my_selection, oppenent):
             
 if __name__ == '__main__':
     fitness_list = []
-    for _ in range(10):
-      for s in settings:
-          #print('settings for ', s, '\n')
-          p = population(s[0], prob_cross=k/10)
-          fitness = 0
-          opp_fitness = 0
-          for i in range(len(strategy_list)):
-              if i == 1:
-                  pt = population(1, match_times=s[1], init_rand=False, prob_cross=k/10)
-              else:
-                  pt = population(1, prob_cross=k/10)
-              for x in range(s[2]):
-                  p.generation(i)
-              pt.glist[0] = p.bestGene
-              pt.evaluate(i)
-              fitness += pt.bestFitness
-              opp_fitness += pt.oppFitness
-              #print('best chromosome from GA:', pt.bestChromosome)
-              #print('for strategy', strategy_list[i], ', maximum fitness:', pt.bestFitness,'/', pt.oppFitness)
-      fitness_list.append(fitness / opp_fitness)
-    print(np.average(fitness_list))
+    p = population(population_size, prob_cross)
+    fitness = 0
+    opp_fitness = 0
+    pt = population(1, match_times, init_rand=False, prob_cross)
+    for x in range(n_generation):
+        p.generation(strategy_type)
+    pt.glist[0] = p.bestGene
+    # select one best gene in population and evaluate again
+    pt.evaluate(strategy_type)
+    fitness += pt.bestFitness
+    opp_fitness += pt.oppFitness
+    print('best chromosome from GA:', pt.bestChromosome)
+    print('for strategy', strategy_list[strategy_type], ', maximum fitness:', pt.bestFitness,'/', pt.oppFitness)
