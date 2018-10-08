@@ -24,10 +24,10 @@ strategy_list = ['AllD', 'AllC', 'Trigger', 'CDCD', 'CCD', 'Random', 'Tit-For-Ta
             
 if __name__ == '__main__':
     fitness_list = []
-    p = population(population_size, prob_cross)
+    p = population(population_size, match_times, init_rand, prob_cross, prob_mutate)
     fitness = 0
     opp_fitness = 0
-    pt = population(1, match_times, init_rand, prob_cross)
+    pt = population(1, match_times, init_rand, prob_cross, prob_mutate)
     for x in range(n_generation):
         p.generation(strategy_type)
     pt.glist[0] = p.bestGene
