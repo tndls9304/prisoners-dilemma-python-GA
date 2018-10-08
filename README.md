@@ -14,3 +14,15 @@ Goal
 ----
 
 Find the maximum strategy to get maximum rewards (fitness).
+
+Genetic Algorithm (GA)
+======================
+
+Encoding
+--------
+
+Use 64-bits chronosmes and 6-bits history.
+
+64-bits is my strategy (0 or 1) what I suggest in next turn.
+
+6-bits save the history of three previous matches. (C_m3 C_o3 C_m2 C_o2 C_m1 C_o1)
