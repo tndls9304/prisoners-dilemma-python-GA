@@ -46,8 +46,8 @@ if __name__ == '__main__':
     p = population(population_size, prob_cross)
     fitness = 0
     opp_fitness = 0
-    pt = population(1, match_times, init_rand=False, prob_cross)
-    for x in range(n_generation):
+    pt = population(1, match_times, init_rand, prob_cross)
+    for _ in range(n_generation):
         p.generation(strategy_type)
     pt.glist[0] = p.bestGene
     # select one best gene in population and evaluate again
