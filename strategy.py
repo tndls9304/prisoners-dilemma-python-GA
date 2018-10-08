@@ -1,4 +1,5 @@
 import numpy as np
+import random
 
 # strategy types
 # 1. AllD (All Defect): always return 1.
